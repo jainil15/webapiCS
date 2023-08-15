@@ -1,0 +1,7 @@
+C:\Users\jaini\source\repos\Solution1\webapi\obj\Debug\net7.0\webapi - Backup.csproj.AssemblyReference.cache
+C:\Users\jaini\source\repos\Solution1\webapi\obj\Debug\net7.0\webapi - Backup.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jaini\source\repos\Solution1\webapi\obj\Debug\net7.0\webapi - Backup.AssemblyInfoInputs.cache
+C:\Users\jaini\source\repos\Solution1\webapi\obj\Debug\net7.0\webapi - Backup.AssemblyInfo.cs
+C:\Users\jaini\source\repos\Solution1\webapi\obj\Debug\net7.0\webapi - Backup.csproj.CoreCompileInputs.cache
+C:\Users\jaini\source\repos\Solution1\webapi\obj\Debug\net7.0\webapi - Backup.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\jaini\source\repos\Solution1\webapi\obj\Debug\net7.0\webapi - Backup.MvcApplicationPartsAssemblyInfo.cache
