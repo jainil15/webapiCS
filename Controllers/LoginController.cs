@@ -11,7 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using webapi.Data;
 using webapi.Models;
 using webapi.RequestResponseModel;
-
+// could be in user  controller 
 namespace webapi.Controllers
 {
   [ApiController]
@@ -25,7 +25,6 @@ namespace webapi.Controllers
     }
 
     [HttpPost]
-
     public async Task<IActionResult> Login([FromForm] LoginRequest request)
     {
       try
@@ -42,18 +41,18 @@ namespace webapi.Controllers
           return Unauthorized(new { Message = "Invalid credentials." });
         }
 
-        var cookieOptions = new CookieOptions
-        {
-          Expires = DateTime.UtcNow.AddHours(1), // Set the cookie expiration time
-          HttpOnly = true, // Prevent JavaScript access to the cookie
-          Secure = true, // Set to true for HTTPS only
-          SameSite = SameSiteMode.Strict // Control when the cookie is sent
-        };
+        // var cookieOptions = new CookieOptions
+        // {
+        //   Expires = DateTime.UtcNow.AddDays(100),
+        //   HttpOnly = true,
+        //   Secure = true,
+        //   SameSite = SameSiteMode.Strict
+        // };
 
         List<Claim> claims = new()
-      {
-        new Claim(ClaimTypes.Name, request.UserName),
-      };
+        {
+          new Claim(ClaimTypes.Name, request.UserName),
+        };
 
         var claimsIdentity = new ClaimsIdentity(claims, "login");
 

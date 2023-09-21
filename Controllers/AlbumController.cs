@@ -87,6 +87,7 @@ namespace webapi.Controllers
             }
             catch (Exception err)
             {
+                Console.WriteLine(err.StackTrace);
                 return Problem();
             }
         }
@@ -109,6 +110,7 @@ namespace webapi.Controllers
             }
             catch (Exception err)
             {
+                Console.WriteLine(err.StackTrace);
                 return Problem();
             }
         }
@@ -131,6 +133,7 @@ namespace webapi.Controllers
             }
             catch (Exception err)
             {
+                Console.WriteLine(err.StackTrace);
                 return Problem(songId, "Song not found", statusCode: 404);
             }
         }
@@ -185,18 +188,18 @@ namespace webapi.Controllers
                     Artist = request.Artist,
                     ReleaseDate = DateTime.Now,
                     Title = request.Title,
-                    ImageUrl = $"https://localhost:7146/album/image/{AlbumImageId}",
+                    ImageUrl = $"https://localhost:7146/api/album/image/{AlbumImageId}",
                     Songs = request.Songs.Select(createSongRequest =>
                     {
                         var songFileId = UploadFileToDrive(createSongRequest.SongFile, SongfolderId);
                         return new Song
                         {
 
-                            Id = Guid.NewGuid(), // You might want to generate a new ID for each song
+                            Id = Guid.NewGuid(),
                             Title = createSongRequest.Title,
                             Artists = createSongRequest.Artists,
-                            SongUrl = $"https://localhost:7146/album/music/{songFileId}",
-                            // Map other properties of the song as needed
+                            SongUrl = $"https://localhost:7146/api/album/music/{songFileId}",
+
                         };
                     }).ToList(),
                 };
@@ -205,6 +208,45 @@ namespace webapi.Controllers
                 await _context.AddAsync(album);
                 await _context.SaveChangesAsync();
                 return Content(album.Id.ToString());
+            }
+            catch (Exception ex)
+            {
+                return Problem();
+            }
+        }
+
+        [HttpGet("batch")]
+        [Authorize]
+        public async Task<IActionResult> GetAlbumsBatch(int skip)
+        {
+            try
+            {
+                var batchSize = 10;
+                var pageSize = batchSize*skip;
+                
+
+                var albums = await _context.Albums.Include(a => a.Songs).Take(pageSize).ToListAsync();
+
+                var albumres = albums.Select(album => new Album
+                {
+                    Id = album.Id,
+                    Artist = album.Artist,
+                    Title = album.Title,
+                    ImageUrl = album.ImageUrl,
+                    ReleaseDate = album.ReleaseDate,
+                    Songs = album.Songs.Select(song => new Song
+                    {
+                        Id = song.Id,
+                        AlbumId = song.AlbumId,
+                        Artists = song.Artists,
+                        Title = song.Title,
+                        SongUrl = song.SongUrl
+
+                    }).ToList()
+                }).ToList();
+                
+                //
+                return new JsonResult(albumres);
             }
             catch (Exception ex)
             {
@@ -257,6 +299,8 @@ namespace webapi.Controllers
             return uploadedFile.Id;
 
         }
+
+
     }
 }
 

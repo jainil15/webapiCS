@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using webapi.Data;
 using webapi.RequestResponseModel;
-
+// could be in user  controller 
 namespace webapi.Controllers
 {
   [ApiController]
@@ -17,7 +17,6 @@ namespace webapi.Controllers
     }
 
     [HttpPost]
-    
     public IActionResult Signup([FromForm] SignUpRequest request)
     {
       if (!ModelState.IsValid)
@@ -46,10 +45,6 @@ namespace webapi.Controllers
 
       return Ok(new { Message = "User registered successfully." });
     }
-
-
-
-
   }
 }
 

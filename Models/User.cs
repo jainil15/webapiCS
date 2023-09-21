@@ -17,7 +17,7 @@ namespace webapi.Models
 
     public string EmailAddress { get; set; }
 
-
+    //public Album? Album {get; set; } or add in album class userId
     public User(Guid id, string name, string emailAddress, string hashedPassword)
     {
       Id = id;

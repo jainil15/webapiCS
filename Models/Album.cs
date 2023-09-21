@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+// need to add user 
 namespace webapi.Models
 {
     public class Album

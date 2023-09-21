@@ -11,7 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using webapi.Data;
 using webapi.Models;
 using webapi.RequestResponseModel;
-
+// could be in user controller 
 namespace webapi.Controllers
 {
   [ApiController]
@@ -30,6 +30,7 @@ namespace webapi.Controllers
       }
       catch (Exception ex)
       {
+        Console.WriteLine(ex.StackTrace);
         return Problem();
       }
     }
